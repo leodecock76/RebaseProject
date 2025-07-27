@@ -1,0 +1,531 @@
+/* Partnerships Page Styles */
+
+/* Header */
+.partnerships-header {
+    padding: 120px 0 60px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    text-align: center;
+}
+
+.partnerships-header h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.partnerships-header p {
+    font-size: 18px;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Partnership Types */
+.partnership-types {
+    padding: 80px 0;
+    background: white;
+}
+
+.types-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.type-card {
+    background: #f8fafc;
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.type-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.type-icon {
+    width: 80px;
+    height: 80px;
+    background: #92400e;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 32px;
+    color: white;
+}
+
+.type-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+}
+
+.type-card p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Featured Partners */
+.featured-partners {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.featured-partners h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 48px;
+    letter-spacing: -1px;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.partner-card {
+    background: white;
+    padding: 28px 32px 36px 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 320px;
+}
+
+.partner-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.partner-logo {
+    width: 80px;
+    height: 80px;
+    background: #f1f5f9;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.partner-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.partner-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    margin-top: 0;
+    line-height: 1.3;
+    min-height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-type {
+    color: #92400e;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0;
+}
+
+.partner-description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 0;
+    font-size: 15px;
+    flex-grow: 1;
+    margin-top: 0;
+    padding-top: 8px;
+}
+
+.website-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #92400e;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: auto;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.website-button:hover {
+    background: #78350f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(146, 64, 14, 0.3);
+}
+
+.website-button i {
+    font-size: 12px;
+}
+
+.partner-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stat {
+    text-align: center;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.stat .number {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 4px;
+}
+
+.stat .label {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Partnership Benefits */
+.partnership-benefits {
+    padding: 80px 0;
+    background: white;
+}
+
+.partnership-benefits h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 48px;
+    letter-spacing: -1px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.benefit-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.benefit-item i {
+    width: 40px;
+    height: 40px;
+    background: #fef3c7;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #92400e;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.benefit-item h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.benefit-item p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Become a Partner */
+.become-partner {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.partner-cta {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.partner-cta h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.partner-cta > p {
+    font-size: 18px;
+    color: #64748b;
+    margin-bottom: 48px;
+}
+
+.partner-form {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1a1a1a;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    background: #f8fafc;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 48px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #92400e;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(146, 64, 14, 0.1);
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #92400e;
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(146, 64, 14, 0.1);
+}
+
+.form-group select:hover {
+    border-color: #cbd5e1;
+    background-color: white;
+}
+
+.submit-button {
+    background: #92400e;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.submit-button:hover {
+    background: #78350f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(146, 64, 14, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .partnerships-header {
+        padding: 100px 0 40px;
+    }
+    
+    .partnerships-header h1 {
+        font-size: 36px;
+    }
+    
+    .partnership-types {
+        padding: 60px 0;
+    }
+    
+    .types-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        max-width: none;
+    }
+    
+    .featured-partners {
+        padding: 60px 0;
+    }
+    
+    .featured-partners h2 {
+        font-size: 28px;
+    }
+    
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: none;
+    }
+    
+    .website-button {
+        width: 100%;
+        justify-content: center;
+        max-width: none;
+    }
+    
+    .partnership-benefits {
+        padding: 60px 0;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .partnership-benefits h2 {
+        font-size: 28px;
+    }
+    
+    .become-partner {
+        padding: 60px 0;
+    }
+    
+    .partner-cta h2 {
+        font-size: 28px;
+    }
+    
+    .partner-form {
+        padding: 24px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .partnerships-header h1 {
+        font-size: 32px;
+    }
+    
+    .partnerships-header p {
+        font-size: 16px;
+    }
+    
+    .featured-partners h2 {
+        font-size: 24px;
+    }
+    
+    .benefits-text h2 {
+        font-size: 24px;
+    }
+    
+    .partner-cta h2 {
+        font-size: 24px;
+    }
+    
+    .partner-card {
+        padding: 24px;
+        min-height: 260px;
+    }
+    
+    .partner-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .network-diagram {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .center-node {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+} 

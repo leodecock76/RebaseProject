@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field-by-Field Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: #92400e; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Field-by-Field Pattern Test</h1>
+    <div id="status"></div>
+    
+    <div class="test-section">
+        <h3>Test 1: Only Required Fields (No Optional)</h3>
+        <button onclick="testRequiredOnly()">Test Required Fields Only</button>
+        <div id="requiredResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test 2: Test Each Field Individually</h3>
+        <button onclick="testOrgName()">Test org_name</button>
+        <button onclick="testContactName()">Test contact_name</button>
+        <button onclick="testEmail()">Test email</button>
+        <button onclick="testPhone()">Test phone</button>
+        <button onclick="testOrgType()">Test org_type</button>
+        <div id="individualResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test 3: Check Database Schema Details</h3>
+        <button onclick="checkTableDetails()">Get Table Details</button>
+        <div id="schemaDetails"></div>
+    </div>
+    
+    <script>
+        const SUPABASE_URL = 'https://yhljlvuqbnsnhtwdovdo.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlobGpsdnVxYm5zbmh0d2RvdmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2NTM2MjAsImV4cCI6MjA2OTIyOTYyMH0.GevKf1f4e-YVlmswT2yd0d9HLGNjzMmRAGKxDEWKWQ8';
+        
+        async function testRequiredOnly() {
+            const resultDiv = document.getElementById('requiredResult');
+            resultDiv.innerHTML = '<div class="status info">Testing...</div>';
+            
+            const testData = {
+                org_name: "TestOrg",
+                contact_name: "TestContact", 
+                email: "test@test.com",
+                phone: "1234567890",
+                org_type: "other"
+            };
+            
+            try {
+                console.log('Testing required fields only:', testData);
+                
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = '<div class="status success">✅ Required fields test successful!</div>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ Error: ${response.status}<br><pre>${errorText}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ Network error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testOrgName() {
+            await testField('org_name', 'TestOrg');
+        }
+        
+        async function testContactName() {
+            await testField('contact_name', 'TestContact');
+        }
+        
+        async function testEmail() {
+            await testField('email', 'test@test.com');
+        }
+        
+        async function testPhone() {
+            await testField('phone', '1234567890');
+        }
+        
+        async function testOrgType() {
+            await testField('org_type', 'other');
+        }
+        
+        async function testField(fieldName, value) {
+            const resultDiv = document.getElementById('individualResult');
+            resultDiv.innerHTML = `<div class="status info">Testing ${fieldName}...</div>`;
+            
+            const testData = {
+                org_name: "TestOrg",
+                contact_name: "TestContact",
+                email: "test@test.com", 
+                phone: "1234567890",
+                org_type: "other",
+                [fieldName]: value
+            };
+            
+            try {
+                console.log(`Testing field ${fieldName}:`, testData);
+                
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<div class="status success">✅ ${fieldName} test successful!</div>`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ ${fieldName} error: ${response.status}<br><pre>${errorText}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ ${fieldName} network error: ${error.message}</div>`;
+            }
+        }
+        
+        async function checkTableDetails() {
+            const resultDiv = document.getElementById('schemaDetails');
+            resultDiv.innerHTML = '<div class="status info">Getting table details...</div>';
+            
+            try {
+                // Try to get table information
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions?select=*&limit=1`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `<div class="status success">✅ Table accessible. Sample data structure:<br><pre>${JSON.stringify(data, null, 2)}</pre></div>`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ Schema error: ${response.status}<br><pre>${errorText}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ Schema check error: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html> 

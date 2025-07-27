@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housing Directory - Rebase</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="directory.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <h2>Rebase</h2>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="partnerships.html">Partnerships</a></li>
+                <li><a href="mission.html">Mission</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="directory-header">
+        <div class="container">
+            <h1>Housing Directory</h1>
+            <p>Find and contact verified housing options across New York City with just one click. Powered and sorted by machine learning.</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Housing Type</label>
+                        <div class="custom-dropdown">
+                            <button class="dropdown-btn" id="typeDropdownBtn">
+                                <span class="dropdown-text">Select Type(s)</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-content" id="typeDropdown">
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="type-transitional" value="transitional">
+                                    <label for="type-transitional">Transitional Housing</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="type-permanent" value="permanent">
+                                    <label for="type-permanent">Permanent Housing</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="type-emergency" value="emergency">
+                                    <label for="type-emergency">Emergency Shelter</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="type-supportive" value="supportive">
+                                    <label for="type-supportive">Supportive Housing</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Borough</label>
+                        <div class="custom-dropdown">
+                            <button class="dropdown-btn" id="boroughDropdownBtn">
+                                <span class="dropdown-text">Select Borough(s)</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-content" id="boroughDropdown">
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="borough-manhattan" value="manhattan">
+                                    <label for="borough-manhattan">Manhattan</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="borough-brooklyn" value="brooklyn">
+                                    <label for="borough-brooklyn">Brooklyn</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="borough-queens" value="queens">
+                                    <label for="borough-queens">Queens</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="borough-bronx" value="bronx">
+                                    <label for="borough-bronx">Bronx</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="borough-staten-island" value="staten-island">
+                                    <label for="borough-staten-island">Staten Island</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="borough-city-wide" value="city-wide">
+                                    <label for="borough-city-wide">City-Wide</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Services</label>
+                        <div class="custom-dropdown">
+                            <button class="dropdown-btn" id="servicesDropdownBtn">
+                                <span class="dropdown-text">Select Service(s)</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-content" id="servicesDropdown">
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="service-case-management" value="case-management">
+                                    <label for="service-case-management">Case Management</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="service-employment" value="employment">
+                                    <label for="service-employment">Employment Support</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="service-substance-abuse" value="substance-abuse">
+                                    <label for="service-substance-abuse">Substance Abuse Treatment</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" id="service-mental-health" value="mental-health">
+                                    <label for="service-mental-health">Mental Health Services</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+        <div class="container">
+            <div class="results-header">
+                <h2>Available Housing Options</h2>
+                <div class="results-controls">
+                    <div class="sort-control">
+                        <label>Sort by:</label>
+                        <div class="custom-dropdown">
+                            <button class="dropdown-btn" id="sortDropdownBtn">
+                                <span class="dropdown-text">Alphabetical</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-content" id="sortDropdown">
+                                <div class="dropdown-option" data-value="alphabetical">
+                                    <span>Alphabetical</span>
+                                </div>
+                                <div class="dropdown-option" data-value="type">
+                                    <span>Housing Type</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="results-count">
+                        <span id="resultCount">0</span> results found
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-grid" id="resultsGrid">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+            
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No results found</h3>
+                <p>Try adjusting your search criteria or filters</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Rebase</h3>
+                    <p>Connecting individuals with reentry housing resources in NYC.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Pages</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="directory.html">Directory</a></li>
+                        <li><a href="partnerships.html">Partnerships</a></li>
+                        <li><a href="mission.html">Mission</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="mailto:rebaseprojectNYC@gmail.com">rebaseprojectNYC@gmail.com</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rebase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="directory.js"></script>
+</body>
+</html> 

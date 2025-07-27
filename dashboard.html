@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebase Dashboard - Form Responses & Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .dashboard {
+            padding: 40px 0;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+        
+        .dashboard-header {
+            background: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        .data-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+        
+        .section-header h3 {
+            margin: 0;
+            color: #1e293b;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .data-table th {
+            background: #f1f5f9;
+            font-weight: 600;
+            color: #475569;
+        }
+        
+        .data-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .refresh-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .refresh-btn:hover {
+            background: #2980b9;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        
+        .error {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Rebase Dashboard</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Back to Site</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1>Form Responses & Analytics</h1>
+                <p>Monitor your form submissions and website analytics</p>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalContacts">-</div>
+                    <div class="stat-label">Contact Submissions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPartnerships">-</div>
+                    <div class="stat-label">Partnership Requests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPageViews">-</div>
+                    <div class="stat-label">Total Page Views</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="uniquePages">-</div>
+                    <div class="stat-label">Pages Viewed</div>
+                </div>
+            </div>
+
+            <!-- Contact Form Submissions -->
+            <div class="data-section">
+                <div class="section-header">
+                    <h3>Contact Form Submissions</h3>
+                    <button class="refresh-btn" onclick="loadContactSubmissions()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div id="contactSubmissions">
+                    <div class="loading">Loading contact submissions...</div>
+                </div>
+            </div>
+
+            <!-- Partnership Form Submissions -->
+            <div class="data-section">
+                <div class="section-header">
+                    <h3>Partnership Requests</h3>
+                    <button class="refresh-btn" onclick="loadPartnershipSubmissions()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div id="partnershipSubmissions">
+                    <div class="loading">Loading partnership submissions...</div>
+                </div>
+            </div>
+
+            <!-- Page Analytics -->
+            <div class="data-section">
+                <div class="section-header">
+                    <h3>Page Analytics</h3>
+                    <button class="refresh-btn" onclick="loadPageAnalytics()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div id="pageAnalytics">
+                    <div class="loading">Loading page analytics...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase configuration - UPDATE THESE WITH YOUR ACTUAL VALUES
+        const SUPABASE_URL = 'https://yhljlvuqbnsnhtwdovdo.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlobGpsdnVxYm5zbmh0d2RvdmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2NTM2MjAsImV4cCI6MjA2OTIyOTYyMH0.GevKf1f4e-YVlmswT2yd0d9HLGNjzMmRAGKxDEWKWQ8';
+
+        // Load all data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+            loadContactSubmissions();
+            loadPartnershipSubmissions();
+            loadPageAnalytics();
+        });
+
+        // Load overview statistics
+        async function loadStats() {
+            try {
+                // Get contact submissions count
+                const contactsResponse = await fetch(`${SUPABASE_URL}/rest/v1/contact_submissions?select=count`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                const contactsData = await contactsResponse.json();
+                document.getElementById('totalContacts').textContent = contactsData[0]?.count || 0;
+
+                // Get partnership submissions count
+                const partnershipsResponse = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions?select=count`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                const partnershipsData = await partnershipsResponse.json();
+                document.getElementById('totalPartnerships').textContent = partnershipsData[0]?.count || 0;
+
+                // Get page analytics count
+                const analyticsResponse = await fetch(`${SUPABASE_URL}/rest/v1/page_analytics?select=count`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                const analyticsData = await analyticsResponse.json();
+                document.getElementById('totalPageViews').textContent = analyticsData[0]?.count || 0;
+
+                // Get unique pages count
+                const uniquePagesResponse = await fetch(`${SUPABASE_URL}/rest/v1/page_analytics?select=page_name`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                const uniquePagesData = await uniquePagesResponse.json();
+                const uniquePages = new Set(uniquePagesData.map(item => item.page_name));
+                document.getElementById('uniquePages').textContent = uniquePages.size;
+
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                showError('Failed to load statistics');
+            }
+        }
+
+        // Load contact form submissions
+        async function loadContactSubmissions() {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/contact_submissions?order=created_at.desc&limit=50`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to fetch contact submissions');
+                
+                const data = await response.json();
+                displayContactSubmissions(data);
+            } catch (error) {
+                console.error('Error loading contact submissions:', error);
+                showError('Failed to load contact submissions');
+            }
+        }
+
+        // Display contact submissions
+        function displayContactSubmissions(submissions) {
+            const container = document.getElementById('contactSubmissions');
+            
+            if (submissions.length === 0) {
+                container.innerHTML = '<div class="loading">No contact submissions yet.</div>';
+                return;
+            }
+
+            const table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${submissions.map(submission => `
+                            <tr>
+                                <td>${submission.name}</td>
+                                <td>${submission.email}</td>
+                                <td>${submission.message.substring(0, 100)}${submission.message.length > 100 ? '...' : ''}</td>
+                                <td>${new Date(submission.created_at).toLocaleDateString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = table;
+        }
+
+        // Load partnership form submissions
+        async function loadPartnershipSubmissions() {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions?order=created_at.desc&limit=50`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to fetch partnership submissions');
+                
+                const data = await response.json();
+                displayPartnershipSubmissions(data);
+            } catch (error) {
+                console.error('Error loading partnership submissions:', error);
+                showError('Failed to load partnership submissions');
+            }
+        }
+
+        // Display partnership submissions
+        function displayPartnershipSubmissions(submissions) {
+            const container = document.getElementById('partnershipSubmissions');
+            
+            if (submissions.length === 0) {
+                container.innerHTML = '<div class="loading">No partnership requests yet.</div>';
+                return;
+            }
+
+            const table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Organization</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${submissions.map(submission => `
+                            <tr>
+                                <td>${submission.org_name}</td>
+                                <td>${submission.contact_name}</td>
+                                <td>${submission.email}</td>
+                                <td>${submission.org_type}</td>
+                                <td>${new Date(submission.created_at).toLocaleDateString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = table;
+        }
+
+        // Load page analytics
+        async function loadPageAnalytics() {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/page_analytics?order=created_at.desc&limit=100`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to fetch page analytics');
+                
+                const data = await response.json();
+                displayPageAnalytics(data);
+            } catch (error) {
+                console.error('Error loading page analytics:', error);
+                showError('Failed to load page analytics');
+            }
+        }
+
+        // Display page analytics
+        function displayPageAnalytics(analytics) {
+            const container = document.getElementById('pageAnalytics');
+            
+            if (analytics.length === 0) {
+                container.innerHTML = '<div class="loading">No page analytics yet.</div>';
+                return;
+            }
+
+            // Group by page and count views
+            const pageCounts = {};
+            analytics.forEach(item => {
+                pageCounts[item.page_name] = (pageCounts[item.page_name] || 0) + 1;
+            });
+
+            const table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Views</th>
+                            <th>Last Viewed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(pageCounts).map(([page, count]) => {
+                            const lastView = analytics.find(item => item.page_name === page);
+                            return `
+                                <tr>
+                                    <td>${page}</td>
+                                    <td>${count}</td>
+                                    <td>${new Date(lastView.created_at).toLocaleDateString()}</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = table;
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            document.querySelector('.dashboard-container').insertBefore(errorDiv, document.querySelector('.stats-grid'));
+        }
+    </script>
+</body>
+</html> 

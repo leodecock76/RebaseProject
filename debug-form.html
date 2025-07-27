@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .form-group { margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #92400e; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>Form Debug Test</h1>
+    <div id="status"></div>
+    
+    <div class="test-section">
+        <h3>Test 1: Minimal Data (Required Fields Only)</h3>
+        <button onclick="testMinimal()">Test with minimal data</button>
+        <div id="minimalResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test 2: Full Data with Simple Values</h3>
+        <button onclick="testFullSimple()">Test with full simple data</button>
+        <div id="fullSimpleResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test 3: Check Database Schema</h3>
+        <button onclick="checkSchema()">Check table structure</button>
+        <div id="schemaResult"></div>
+    </div>
+    
+    <script>
+        const SUPABASE_URL = 'https://yhljlvuqbnsnhtwdovdo.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlobGpsdnVxYm5zbmh0d2RvdmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2NTM2MjAsImV4cCI6MjA2OTIyOTYyMH0.GevKf1f4e-YVlmswT2yd0d9HLGNjzMmRAGKxDEWKWQ8';
+        
+        async function testMinimal() {
+            const resultDiv = document.getElementById('minimalResult');
+            resultDiv.innerHTML = '<div class="status info">Testing...</div>';
+            
+            const testData = {
+                org_name: "Test Org",
+                contact_name: "Test Contact",
+                email: "test@example.com",
+                phone: "123-456-7890",
+                org_type: "other"
+            };
+            
+            try {
+                console.log('Testing minimal data:', testData);
+                
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = '<div class="status success">✅ Minimal test successful!</div>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ Error: ${response.status}<br>${errorText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ Network error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testFullSimple() {
+            const resultDiv = document.getElementById('fullSimpleResult');
+            resultDiv.innerHTML = '<div class="status info">Testing...</div>';
+            
+            const testData = {
+                org_name: "Test Organization",
+                contact_name: "John Doe",
+                email: "john@test.com",
+                phone: "555-123-4567",
+                org_type: "housing-provider",
+                services: "Housing services",
+                message: "Test message"
+            };
+            
+            try {
+                console.log('Testing full simple data:', testData);
+                
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = '<div class="status success">✅ Full test successful!</div>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ Error: ${response.status}<br>${errorText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ Network error: ${error.message}</div>`;
+            }
+        }
+        
+        async function checkSchema() {
+            const resultDiv = document.getElementById('schemaResult');
+            resultDiv.innerHTML = '<div class="status info">Checking schema...</div>';
+            
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions?limit=0`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = '<div class="status success">✅ Table exists and is accessible</div>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ Schema error: ${response.status}<br>${errorText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ Schema check error: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html> 

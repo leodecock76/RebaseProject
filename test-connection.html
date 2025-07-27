@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Supabase Connection Test</h1>
+    <div id="status"></div>
+    
+    <script>
+        const SUPABASE_URL = 'https://yhljlvuqbnsnhtwdovdo.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlobGpsdnVxYm5zbmh0d2RvdmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2NTM2MjAsImV4cCI6MjA2OTIyOTYyMH0.GevKf1f4e-YVlmswT2yd0d9HLGNjzMmRAGKxDEWKWQ8';
+        
+        async function testConnection() {
+            const statusDiv = document.getElementById('status');
+            
+            try {
+                // Test basic connection
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/contact_submissions?select=count`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                
+                if (response.ok) {
+                    statusDiv.innerHTML = '<div class="status success">✅ Connection successful! Supabase is working.</div>';
+                } else {
+                    statusDiv.innerHTML = `<div class="status error">❌ Connection failed. Status: ${response.status} ${response.statusText}</div>`;
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">❌ Connection error: ${error.message}</div>`;
+            }
+        }
+        
+        testConnection();
+    </script>
+</body>
+</html> 

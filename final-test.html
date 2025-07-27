@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Form Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: #92400e; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>Final Form Test - All Fields Included</h1>
+    <div id="status"></div>
+    
+    <div class="test-section">
+        <h3>Test: All Fields (Required + Optional)</h3>
+        <button onclick="testAllFields()">Test Complete Form Data</button>
+        <div id="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test: Real Form Simulation</h3>
+        <button onclick="testRealForm()">Simulate Real Form Submission</button>
+        <div id="realResult"></div>
+    </div>
+    
+    <script>
+        const SUPABASE_URL = 'https://yhljlvuqbnsnhtwdovdo.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlobGpsdnVxYm5zbmh0d2RvdmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2NTM2MjAsImV4cCI6MjA2OTIyOTYyMH0.GevKf1f4e-YVlmswT2yd0d9HLGNjzMmRAGKxDEWKWQ8';
+        
+        async function testAllFields() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="status info">Testing with all fields...</div>';
+            
+            const testData = {
+                org_name: "Test Organization",
+                contact_name: "John Doe",
+                email: "john@test.com",
+                phone: "555-123-4567",
+                org_type: "housing-provider",
+                services: "Housing and support services",  // Optional field
+                message: "We would like to partner with Rebase"  // Optional field
+            };
+            
+            try {
+                console.log('Testing with all fields:', testData);
+                
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = '<div class="status success">✅ All fields test successful! Form should work now.</div>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ Error: ${response.status}<br>${errorText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ Network error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testRealForm() {
+            const resultDiv = document.getElementById('realResult');
+            resultDiv.innerHTML = '<div class="status info">Simulating real form submission...</div>';
+            
+            const testData = {
+                org_name: "Community Housing Initiative",
+                contact_name: "Sarah Johnson",
+                email: "sarah@communityhousing.org",
+                phone: "212-555-0123",
+                org_type: "service-organization",
+                services: "We provide transitional housing, case management, and employment support for individuals returning from incarceration.",
+                message: "We have been working in NYC for 15 years and would love to partner with Rebase to expand our reach and help more people find stable housing."
+            };
+            
+            try {
+                console.log('Simulating real form:', testData);
+                
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/partnership_submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = '<div class="status success">✅ Real form simulation successful! Your forms should work perfectly now.</div>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="status error">❌ Error: ${response.status}<br>${errorText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="status error">❌ Network error: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html> 
