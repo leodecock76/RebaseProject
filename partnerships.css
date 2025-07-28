@@ -88,8 +88,17 @@
     font-weight: 700;
     color: #1a1a1a;
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     letter-spacing: -1px;
+}
+
+.partners-intro {
+    font-size: 18px;
+    color: #64748b;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
 }
 
 .partners-grid {
