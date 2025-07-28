@@ -710,6 +710,11 @@ body {
         gap: 32px;
     }
 
+    /* Hide the "2,000+ People Helped" stat on mobile */
+    .hidden-mobile {
+        display: none;
+    }
+
     .section-content {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -743,7 +748,6 @@ body {
         justify-content: center;
         gap: 20px;
         margin-top: 40px;
-        order: 2;
     }
 
     .services .text-content {
