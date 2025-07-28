@@ -702,7 +702,7 @@ body {
     .hero-visual {
         align-items: center;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: 40px;
     }
 
     .stats-grid {
@@ -736,13 +736,18 @@ body {
         font-size: 36px;
     }
 
-    /* Change services visual to horizontal layout and position below Partner Network text */
+    /* Move services visual below the What We Offer section */
     .services-visual {
         flex-direction: row;
         align-items: center;
         justify-content: center;
         gap: 20px;
-        margin-top: 20px;
+        margin-top: 40px;
+        order: 2;
+    }
+
+    .services .text-content {
+        order: 1;
     }
 
     .footer-content {
