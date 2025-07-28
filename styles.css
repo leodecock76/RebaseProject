@@ -698,6 +698,13 @@ body {
         justify-content: center;
     }
 
+    /* Center the check icon vertically in the hero section on mobile */
+    .hero-visual {
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
     .stats-grid {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -729,9 +736,13 @@ body {
         font-size: 36px;
     }
 
+    /* Change services visual to horizontal layout and position below Partner Network text */
     .services-visual {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
     }
 
     .footer-content {
